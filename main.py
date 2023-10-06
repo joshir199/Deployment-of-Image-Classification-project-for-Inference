@@ -5,6 +5,7 @@ import matplotlib.pylab as plt
 from torch.utils.data import DataLoader
 from model.ConvolutionalNNModel import ConvolutionalNNModel
 from data.ImageDataset import getTrainDataset, getValidationDataset
+from utils import ServingUtil
 from utils.CNNModelUtil import showData
 import argparse
 
@@ -14,11 +15,11 @@ parser.add_argument('--train', action='store_true', help='training a CNN model')
 parser.add_argument('--evaluate', action='store_true', help='evaluating a trained CNN model by a tensor')
 parser.add_argument('--learning_rate', type=float, default=0.01, metavar='LR',
                     help='learning rate for training (default : 0.01)')
+parser.add_argument('--max_epoch', type=int, default=5, metavar='EPOCHS', help='maximum number of epochs')
 parser.add_argument('--outf', default='/output', help='folder for output images and model checkpoints')
 parser.add_argument('--ckpf', default='', help='path to model checkpoint file to continue training')
 
 args = parser.parse_args()
-lr = args.learning_rate
 
 # Is CUDA available?
 cuda = torch.cuda.is_available()
@@ -27,6 +28,25 @@ print("Is cuda available: ", cuda)
 torch.manual_seed(args.seed)
 if cuda:
     torch.cuda.manual_seed(args.seed)
+
+
+if args.evaluate:
+    img_path = "./images/input_image_for_image_classification.png"
+    tens = ServingUtil.getTensorAfterTransformed(img_path)
+    plt.imshow(tens[0].numpy().reshape(16, 16), cmap='gray')
+    plt.show()
+
+    path = "./output/model_checkpoint.pt"
+    model = ConvolutionalNNModel(need_BN=False)
+    model.load_state_dict(torch.load(path))
+    print(" model loaded")
+    output = model(tens)
+    # get index of maximum value : argmax
+    _, yhat = torch.max(output.data, 1)
+    print("output label: ", yhat)
+
+
+#print(" tensor : ", tens)
 
 
 def save_checkpoints(model):
@@ -87,15 +107,17 @@ def train_model(model, train_loader, validation_loader, optimizer, n_epochs=5):
 
 
 if args.train:
+    lr = args.learning_rate
     model = ConvolutionalNNModel(input_channel=1, output_channel=10, need_BN=True)
     loss = nn.CrossEntropyLoss()
     optimizer = torch.optim.SGD(model.parameters(), lr=lr)
     train_dataset = DataLoader(dataset=getTrainDataset(16), batch_size=100)
     val_dataset = DataLoader(dataset=getValidationDataset(16), batch_size=5000)
-    showData(getValidationDataset(16)[3], 16)
+    showData(getValidationDataset(16)[6], 16)
 
     print("Before Training starts: ")
-    ACC, LOSS = train_model(model=model, train_loader=train_dataset, validation_loader=val_dataset, optimizer=optimizer)
+    ACC, LOSS = train_model(model=model, train_loader=train_dataset, validation_loader=val_dataset,
+                            optimizer=optimizer, n_epochs=args.max_epoch)
     print("After Training ends: ")
     # Plot out the Loss and iteration diagram
     plt.plot(LOSS)
