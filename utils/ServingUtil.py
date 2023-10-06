@@ -1,6 +1,9 @@
 import io
+import torch
+import json
 from PIL import Image
 import torchvision.transforms as transforms
+from model.ConvolutionalNNModel import ConvolutionalNNModel
 
 
 def getServingTransformFn(image_size):
@@ -23,3 +26,18 @@ def getTensorAfterTransformed(img_path):
         tensor = transform_image(image_bytes=image_bytes)
         print(" tensor shape: ", tensor.shape)
         return tensor
+
+
+def get_prediction(test_image):
+    path = "./output/model_checkpoint.pt"
+    model = ConvolutionalNNModel(need_BN=False)
+    model.load_state_dict(torch.load(path))
+    print(" model loaded")
+    output = model(test_image)
+    # get index of maximum value : argmax
+    _, yhat = torch.max(output.data, 1)
+
+    predicted_idx = str(yhat.item())
+    imagenet_class_index = json.load(open('./serving/digits_class_index.json'))
+
+    return imagenet_class_index[predicted_idx]
