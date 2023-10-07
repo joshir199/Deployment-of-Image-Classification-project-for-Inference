@@ -38,6 +38,6 @@ def get_prediction(test_image):
     _, yhat = torch.max(output.data, 1)
 
     predicted_idx = str(yhat.item())
-    imagenet_class_index = json.load(open('./serving/digits_class_index.json'))
+    digits_class_index = json.load(open('./serving/digits_class_index.json'))
 
-    return imagenet_class_index[predicted_idx]
+    return digits_class_index[predicted_idx]
