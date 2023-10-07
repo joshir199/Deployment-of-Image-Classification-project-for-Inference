@@ -52,16 +52,19 @@ the response can be seen at the Web link : http://localhost:5000/ and endpoint :
 
 Once the model is already deployed to Web Server for Inference, prediction can be easily done using REST calls with POST request sending image_file and Model Inference Endpoint Uri.
 
+Server-Client Architecture is used for here.
 Server Endpoint Uri : http://localhost:5000/predict_post
 
-1. Run the Server using terminal/ CLI as below
+# Server Part
+1. Run the Server using terminal/ CLI as below:
 ```bash
 $ python app.py
 ```
 
 
+# Client Part
 2. Run the command with another terminal/CLI while keeping Web Server running in background using step 1.
-   Go to /serving folder and run following command:
+   Go to /client folder and run following command:
 ```bash
 $ python predictionRequest.py
 ```
@@ -71,6 +74,6 @@ At the Server End, If successful, success response code will be printed:
  "POST /predict_post HTTP/1.1" 200
 
 At the Request Sender End, after successful post request, prediction result will be sent as response.
-The reponse is sent in json format as mentioned as here: ![ json format for result](https://github.com/joshir199/Deployment-of-Image-Classification-project-for-Inference/blob/main/serving/digits_class_index.json)
+The response is sent in json format as mentioned as here: ![ json format for result](https://github.com/joshir199/Deployment-of-Image-Classification-project-for-Inference/blob/main/serving/digits_class_index.json)
   
   response:  {'class_id': 'd03', 'class_name': 'Three'}

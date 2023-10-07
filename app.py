@@ -1,7 +1,9 @@
-from flask import Flask,request, jsonify
+from flask import Flask, request, jsonify
 from utils import ServingUtil
 from utils.ServingUtil import get_prediction, transform_image
 
+
+# Server Part in Client-Server Architecture
 # Initializing the web server
 app = Flask(__name__)
 
