@@ -51,3 +51,17 @@
    It's a good choice for building APIs that need to handle heavy traffic and maintain low latency.
 
 """
+
+# Advantages of FastAPI over Flask Web Server Framework
+"""
+1. FastAPI will automatically create JSON based on the fields in the Pydantic model and set 
+   the right JSON data type from the Python type hints.
+   If the type does match while request is made, then FastAPI will automatically return an appropriate error
+
+2. FastAPI natively supports asynchronous programming using Python's async and await keywords. 
+   This means you can write asynchronous code to handle I/O-bound operations efficiently.
+   It is designed to handle a large number of requests efficiently and thus provide low latency.
+   
+3. FastAPI provides inbuilt documentation using awesome GUI interface for validating RESTAPI calls with its Framework.
+   Using command : base-url/doc  => opens GUI interface like POSTMAN.
+"""

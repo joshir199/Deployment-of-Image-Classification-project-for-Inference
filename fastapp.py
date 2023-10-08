@@ -35,3 +35,12 @@ async def predict_post(image_file: UploadFile = File(...)):
     print("class name: ", class_name)
     return LabelResult(class_id=class_id, class_name=class_name)
 
+
+
+# Calling FastAPI Server using terminal:
+# uvicorn file_name:FastAPI_variable_name --reload
+# uvicorn fastapi:fastapi --reload
+"""
+reload : It will reload the Server if already running. And If any changes made to fastapi file, the server will
+         automatically reload without any need to manually restart the Server.
+"""
