@@ -1,12 +1,12 @@
 # Deployment of Image Classification project for Inference using Flask / FastAPI Server 
-Creating deployment pipeline to deploy an Image Classification model using Flask and expose a REST API for model inference.
+Creating deployment pipeline to deploy an Image Classification model using Flask / FastAPI Framework and expose a REST API for model inference.
 
 This project trains on standard MNIST dataset using Convolutional Neural Network (CNN) model architecture. It predicts the class which the digit shown as image in the input image files.
 The Model is same as model used for Image classification in this ![image classification project](https://github.com/joshir199/Image-Classification-Using-CNN-PyTorch-project)
 
 Further, Model deployment and Inference part of the project has been discussed in this project.
 
-Following steps Can be followed sequentially to understand the model training, evaluation, deployment and Inference on WebServer pipeline.
+Following steps can be followed sequentially to understand the model training, evaluation, deployment and Inference on WebServer pipeline.
 ----------------------------------------------
 # Model Training
 
