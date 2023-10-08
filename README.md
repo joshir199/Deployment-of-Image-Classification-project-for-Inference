@@ -1,4 +1,4 @@
-# Deployment of Image Classification project for Inference using Flask Server
+# Deployment of Image Classification project for Inference using Flask / FastAPI Server 
 Creating deployment pipeline to deploy an Image Classification model using Flask and expose a REST API for model inference.
 
 This project trains on standard MNIST dataset using Convolutional Neural Network (CNN) model architecture. It predicts the class which the digit shown as image in the input image files.
@@ -48,7 +48,7 @@ the response can be seen at the Web link : http://localhost:5000/ and endpoint :
 
 ---------------> Flask Server End result
 *****************************************************
-# Model Inference using REST Api POST requests to Web Server
+# Model Inference using REST Api POST requests to FLASK Web Server
 
 Once the model is already deployed to Web Server for Inference, prediction can be easily done using REST calls with POST request sending image_file and Model Inference Endpoint Uri.
 
@@ -77,3 +77,31 @@ At the Request Sender End, after successful post request, prediction result will
 The response is sent in json format as mentioned as here: ![ json format for result](https://github.com/joshir199/Deployment-of-Image-Classification-project-for-Inference/blob/main/serving/digits_class_index.json)
   
   response:  {'class_id': 'd03', 'class_name': 'Three'}
+
+
+# Model Inference using REST Api POST requests to FastAPI Framework
+
+Once the model is already deployed to Web Server for Inference, prediction can be easily done using REST calls with POST request sending image_file and Model Inference Endpoint Uri.
+
+Server-Client Architecture is used for here.
+Server Endpoint Uri : http://localhost:8000/predict_post
+
+1. Run the Server using terminal/ CLI as below:
+```bash
+$ uvicorn fastapp:fastapp --reload
+```
+
+![](https://github.com/joshir199/Deployment-of-Image-Classification-project-for-Inference/blob/main/fastapiserving/fastapi_server_http_response.png)
+
+-------------> When running FastAPI Web Server
+
+*************************************************************
+
+FastAPI framework supports proper GUI interface for inference using defined APIs in fastapi file.
+This makes FastAPI superior over Flask. For more detailed analysis, visit ![fastAPI properties](https://github.com/joshir199/Deployment-of-Image-Classification-project-for-Inference/blob/main/fastapiserving/fastAPIproperties.py).
+
+![](https://github.com/joshir199/Deployment-of-Image-Classification-project-for-Inference/blob/main/fastapiserving/fastapi_doc_post_method.png)
+
+-------------------> inbuilt GUI interface for methods documentation and analysis 
+
+For understanding other features of FastAPI, please visit its official documentation page here. ![FastAPI docs](https://fastapi.tiangolo.com/)
